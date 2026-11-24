@@ -1,45 +1,57 @@
 # Normal Distribution Visualiser
 
-A simple Python desktop app that plots a normal distribution (bell curve) from values you enter.
+Interactive Python tool to visualise the normal distribution curve from user inputs.
 
-It draws the curve plus a red dashed line at the mean.
+Built to answer a simple question: how can complicated data be made easy to understand for other people?
 
-## Requirements
+## What it does
 
-- Python 3
-- matplotlib
-- numpy
-- customtkinter
+- Takes user inputs for **mean**, **standard deviation**, **min x** and **max x** via a GUI
+- Plots the normal distribution PDF curve
+- Draws a dashed red line at the mean to show symmetry
+- Validates inputs - if max x < min x, an error message is shown in the GUI instead of plotting incorrectly
 
-## Install
+## Tech Stack
 
-    pip install matplotlib numpy customtkinter
+- Python
+- CustomTkinter - dark mode GUI
+- Matplotlib - plotting
+- NumPy, Math - calculations
 
-## Run
+## The Maths Behind It
 
-    python Normal_Distribution.py
+The curve is coded manually using the general equation, not using a library call:
 
-## How to use
+```
+f(x) = (1 / (deviation * sqrt(2 * pi))) * e^(-0.5 * ((x - mean) / deviation)^2)
+```
 
-1. Enter the Mean
-2. Enter the Standard Deviation
-3. Enter the Min x value
-4. Enter the Max x value
-5. Click Visualise
+What I found when exploring it:
 
-A graph will open showing your normal distribution.
+- Changing the **mean** shifts the curve left / right
+- Increasing the **standard deviation** makes the curve wider and the peak height shorter, because the area under the curve stays at 1
+- The curve has an asymptote at y = 0, the tails are infinite but probability density is highest near the mean (the expected value)
 
-Use whole numbers only. If Max x is less than Min x, it will show an error in the text box.
+This comes from reading Keller - Statistics for Management and Economics.
 
-## Example
+## How to Run
 
-Try this for a standard normal distribution:
+```bash
+pip install customtkinter matplotlib numpy
+python main.py
+```
 
-- Mean: 0
-- Deviation: 1
-- Min x value: -5
-- Max x value: 5
+Enter values in the GUI and click **Visualise**.
 
-## Files
+## What I Learned
 
-- Normal_Distribution.py - The main app
+- Implementing a mathematical formula from first principles in code
+- Breaking a project into parts: getting and checking values (`GetandCheckValues()`), generating x/y data, plotting
+- Making a tool usable for others - validation and error feedback, not just plotting for myself
+- Why visualisation helps understanding: seeing the effect of mean and deviation is clearer than reading the formula alone
+
+## Future Improvements
+
+- Allow decimal inputs for mean / deviation (currently uses int)
+- Handle deviation = 0 to avoid division by zero
+- Use NumPy vectorisation instead of looping with a 0.01 step for speed
